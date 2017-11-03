@@ -4,17 +4,23 @@ import { connect } from 'redux-zero/react';
 import { Play , Stop , Next} from './actions';
 import './App.css';
 
-const PlayList = () => ( 
+const PlayList = () => { 
+  
+  return ( 
   <div>
-    <h1>Treetunes</h1>
+    <h1>Treetunes </h1>
     <button id="play" type='button' onClick = {
-      e => Play(0)} > Play </button>
+      e => Play()} > Play </button>
     <button id="next" type='button' onClick = {
-      e => Next(0)}>Next</button>
-    <button id="stop" type='button' onClick = {
-      e => Stop(0)}>Stop</button>
-  </div>
-);
+      e => {
+        Stop();
+        Next()  
+        }} > Next </button>
+    <button id="stop" type='button'
+     onClick = {
+      e =>  Stop() } > Stop </button>
+  </div> );
+};
 
 const Song = ({ title, artist , duration , state }) => (
   <li className={state}>{title}
@@ -23,6 +29,7 @@ const Song = ({ title, artist , duration , state }) => (
 );
 
 const App = ({songs})=> {
+   
     const list = songs.map( item => ( 
        <Song 
          key= {item.id}

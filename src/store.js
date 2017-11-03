@@ -17,9 +17,11 @@ const songs = [
       state :'notplay'
     },
 ] ;
+const position = 0 ;
 
 const initialState = {
-    songs : songs 
+    songs : songs ,
+    position:position
 };
 
 const store = createStore(initialState);

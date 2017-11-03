@@ -1,38 +1,36 @@
 import store from './store';
 
- export const Play = id =>{
+ const playing = (play , next) => {
+
     let newList = store.getState().songs;
-    newList = newList.filter(item => {
-        if (item.id == id){
-            item.state = 'starplay';
+    let newPosition = store.getState().position + next;
+    if (newPosition >=3){
+        newPosition = 0;
+    }
+    newList = newList.map(item => {
+        if (item.id === newPosition){
+            return {
+                ...item,
+                state: play
+            }
         }
+        return item
     });
-    console.log(newList) ;
+
     store.setState({
-       comments: newList
+       songs: newList , 
+       position:newPosition
     });
+ }
+
+ export const Play = id =>{
+    playing('starplay' , 0);
  };
  export const Next = id =>{
-    let newList = store.getState().songs;
-    newList = newList.filter(item => item.id == id);
-    store.setState({
-       comments: newList
-    });
+     playing('starplay',1);
+    
 };
- export const Stop = id =>{
-    let newList = store.getState().songs;
-    newList = newList.filter(item => item.id == id);
 
-    console.log(newList);
-    store.setState({
-       comments: newList
-    });
+ export const Stop = id =>{
+    playing('notplay' ,0)
 };
-/*
-export const deleteComment = id => {
-    let newList = store.getState().comments;
-    newList = newList.filter(item => item.id != id);
-    store.setState({
-       comments: newList
-    });
- };*/
